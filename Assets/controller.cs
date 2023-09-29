@@ -182,7 +182,7 @@ public class controller : MonoBehaviour
 
             if (other.gameObject.transform.position.x > transform.position.x)
             {
-                rg.velocity = new Vector2(-Hurtforce, rg.velocity.y + 7);
+                rg.velocity = new Vector2(-Hurtforce, Hurtforce);
             }
             if (other.gameObject.transform.position.x < transform.position.x)
             {
@@ -194,13 +194,16 @@ public class controller : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("a");
-        rg.velocity = new Vector2(rg.velocity.x, attackDash);  
+        dashwhenAtk();
         if (!isAttacking)
         {
             isAttacking = true;
             
         }
+    }
+    public void dashwhenAtk()
+    {
+        rg.velocity = Vector2.right* attackDash;
     }
 }
 
