@@ -20,13 +20,20 @@ public class Enemy : MonoBehaviour
     }
 
     public void OnDeath()
-    {
-        Destroy(this.gameObject);
-        rb.velocity = Vector2.zero;
+    {    
+        anim.SetBool("IsDeath", true);
+        Debug.Log("death");
     }
     // Update is called once per frame
+
+    public void DeleteCorpse()
+    {
+        Destroy(this.gameObject);
+    }
     void Update()
     {
         
     }
+
+
 }

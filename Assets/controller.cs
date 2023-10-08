@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class controller : MonoBehaviour
@@ -20,6 +21,7 @@ public class controller : MonoBehaviour
     public float Hurtforce = 0;
     public bool isAttacking = false;
     public static controller instance;
+    public int tempCoins;
 
     public Rigidbody2D rg;
     public CapsuleCollider2D boxcl;
@@ -27,6 +29,9 @@ public class controller : MonoBehaviour
     public GameObject Dustparticle;
     public GameObject JumpParticle;
     public GameObject FallParticle;
+    public PlayerHealthManager HealthManager;
+    public PlayerCoinsManager CoinsManager;
+    public coinBehaviour CoinsBehaviour;
 
     public enum State { idle, running, jumping, falling, hurt, doubleJump }
 
@@ -37,6 +42,9 @@ public class controller : MonoBehaviour
         rg = GetComponent<Rigidbody2D>();
         boxcl = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
+        HealthManager = FindObjectOfType<PlayerHealthManager>();
+        CoinsManager = FindObjectOfType<PlayerCoinsManager>();
+        CoinsBehaviour = FindObjectOfType<coinBehaviour>();
 
         //Input system
 
@@ -72,7 +80,10 @@ public class controller : MonoBehaviour
         Animation();
         anim.SetInteger("state", (int)state);
     }
-
+    private void Update()
+    {
+        
+    }
     public void Movee()
     {
         rg.velocity = new Vector2(direction * speed * Time.deltaTime, rg.velocity.y);
@@ -151,15 +162,15 @@ public class controller : MonoBehaviour
         //hoat anh bi hurt
         else if (state == State.hurt)
         {
-            if (hurttimer >= HurtDelay)
-            {
-                state = State.idle;
-                hurttimer = 0;
-            }
+        //    if (hurttimer >= HurtDelay)
+        //    {
+        //        state = State.idle;
+        //        hurttimer = 0;
+        //     }
 
         }
         //hoat anh chay
-        else if (Mathf.Abs(rg.velocity.x) > 2f)
+        else if (Mathf.Abs(rg.velocity.x) > 3f)
         {
             state = State.running;
 
@@ -179,22 +190,36 @@ public class controller : MonoBehaviour
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
             state = State.hurt;
+            HealthManager.TakeDamage(1);
 
             if (other.gameObject.transform.position.x > transform.position.x)
             {
-                rg.velocity = new Vector2(-Hurtforce, Hurtforce);
+                rg.velocity = new Vector2(-Hurtforce, Hurtforce +3);
             }
             if (other.gameObject.transform.position.x < transform.position.x)
             {
-                rg.velocity = new Vector2(Hurtforce, rg.velocity.y + 7);
+                rg.velocity = new Vector2(Hurtforce, Hurtforce +3);
             }
         }
     }
-    // Player Combat Logic
+    public void OnTriggerEnter2D(Collider2D trig)
+    {
+        //va cham voi enemy
+       
+        // va cham voi vat pham
+        if(trig.gameObject.tag == "currency")
+        {
+            coinBehaviour Coins = trig.gameObject.GetComponent<coinBehaviour>();
+            tempCoins = Coins.Value;
+            CoinsManager.TakeCoins(tempCoins);
+        }
+    }
 
+
+    // Player Combat Logic
     public void Attack()
     {
-        dashwhenAtk();
+      //  dashwhenAtk();
         if (!isAttacking)
         {
             isAttacking = true;
@@ -203,7 +228,11 @@ public class controller : MonoBehaviour
     }
     public void dashwhenAtk()
     {
-        rg.velocity = Vector2.right* attackDash;
+        rg.velocity = new Vector2(attackDash, 0);
+    }
+    public void StopHurt()
+    {
+        state = State.idle;
     }
 }
 

@@ -5,10 +5,8 @@ using UnityEngine;
 public class CrabBehavior : Enemy
 {
     // anim
-    public enum State { idle, run,charge, attack  }
+    public enum State { idle, run,charge, attack, }
 
-
-   
     // frog move
     public float RunForce;
     public float timer;
@@ -16,30 +14,32 @@ public class CrabBehavior : Enemy
     public State state = State.idle;
     public LayerMask ground;
     public bool Facingleft = true;
-    // Moving Limit
+    // 
     public float OriginPoint;
     public Rigidbody2D rg;
     public Collider2D coll;
     public Transform player;
+    public Transform me;
     public GameObject HitBox;
+    public GameObject Reward;
 
     protected override void Start()
     {
         rg = GetComponent<Rigidbody2D>();
         base.Start();
         coll = GetComponent<Collider2D>();
+        me = GetComponent<Transform>();
 
         OriginPoint = transform.position.x;
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void FixedUpdate()
     {
-        
-        if(state == State.run)
-        {
-            Move();
-        }
-        anim.SetInteger("state", (int)state);
+            if(state == State.run)
+            {
+             Move();
+            }
+        anim.SetInteger("state", (int)state); 
     }
     private void Move()
     {   
@@ -62,11 +62,16 @@ public class CrabBehavior : Enemy
     public void Attack()
     {
         state = State.attack;
-        Instantiate(HitBox);
     }
     public void BacktoIdle()
     {
         state = State.idle;
     }
-
+    public void DiedReward()
+    {
+        for(int i=0; i < 3; i++)
+        {
+            Instantiate(Reward, me.position, me.rotation);
+        }
+    }
 }
