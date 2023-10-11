@@ -79,7 +79,9 @@
     <Compile Include="Assets\Trans1.cs" />
     <Compile Include="Assets\controller.cs" />
     <Compile Include="Assets\Enemy.cs" />
+    <Compile Include="Assets\Parallax.cs" />
     <Compile Include="Assets\DealDamage.cs" />
+    <Compile Include="Assets\SunScript.cs" />
     <Compile Include="Assets\RadaForCrab.cs" />
     <Compile Include="Assets\PlayerCoinsManager.cs" />
     <Compile Include="Assets\EnemyBehavior.cs" />
