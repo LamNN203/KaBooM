@@ -18,9 +18,11 @@ public class coinBehaviour : MonoBehaviour
         collision = GetComponent<CircleCollider2D>();
         rg = GetComponent<Rigidbody2D>();   
         playerCoinsManager = FindObjectOfType<PlayerCoinsManager>();
+        GameObject me = GameObject.FindGameObjectWithTag("Item");
+        Physics2D.IgnoreCollision(me.GetComponent<Collider2D>(), GetComponent<Collider2D>());
 
         rg = GetComponent<Rigidbody2D>();
-        rg.velocity = new Vector3(UnityEngine.Random.Range(1f, 2f), 3);
+        rg.velocity = new Vector3(UnityEngine.Random.Range(-2f, 2f), 3);
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class coinBehaviour : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
+            rg.isKinematic = true;
             anim.SetBool("IsEaten", true);
             gameObject.GetComponent<CircleCollider2D>().enabled = false;
             rg.isKinematic = true;
