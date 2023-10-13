@@ -201,6 +201,21 @@ public class controller : MonoBehaviour
                 rg.velocity = new Vector2(Hurtforce, Hurtforce +3);
             }
         }
+        // va cham voi CannonBall
+        if (other.gameObject.tag == "CannonBall")
+        {
+            state = State.hurt;
+            HealthManager.TakeDamage(3);
+
+            if (other.gameObject.transform.position.x > transform.position.x)
+            {
+                rg.velocity = new Vector2(-Hurtforce + 1 , Hurtforce + 3);
+            }
+            if (other.gameObject.transform.position.x < transform.position.x)
+            {
+                rg.velocity = new Vector2(Hurtforce +1 , Hurtforce + 3);
+            }
+        }
     }
     public void OnTriggerEnter2D(Collider2D trig)
     {

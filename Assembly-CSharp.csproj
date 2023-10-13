@@ -58,6 +58,7 @@
     <Analyzer Include="E:\2022.3.9f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\CannonRadaScr.cs" />
     <Compile Include="Assets\newObj.cs" />
     <Compile Include="Assets\Cam.cs" />
     <Compile Include="Assets\BarrelScrip.cs" />
@@ -66,23 +67,31 @@
     <Compile Include="Assets\PieceParticle.cs" />
     <Compile Include="Assets\PlayerHealthManager.cs" />
     <Compile Include="Assets\Move Input\PlayerController.cs" />
+    <Compile Include="Assets\FireEffect.cs" />
     <Compile Include="Assets\DustParticle.cs" />
+    <Compile Include="Assets\SeaShell.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
     <Compile Include="Assets\coinBehaviour.cs" />
     <Compile Include="Assets\Trans2.cs" />
     <Compile Include="Assets\HitboxCrab.cs" />
     <Compile Include="Assets\SpawnCloud.cs" />
+    <Compile Include="Assets\SeaShellRada.cs" />
     <Compile Include="Assets\CombatSystem.cs" />
     <Compile Include="Assets\CloudScrips.cs" />
     <Compile Include="Assets\DustDestroyer.cs" />
+    <Compile Include="Assets\CannonBallScr.cs" />
     <Compile Include="Assets\CrabBehavior.cs" />
     <Compile Include="Assets\Trans1.cs" />
     <Compile Include="Assets\controller.cs" />
+    <Compile Include="Assets\SeaShellBite.cs" />
     <Compile Include="Assets\Enemy.cs" />
     <Compile Include="Assets\Parallax.cs" />
     <Compile Include="Assets\DealDamage.cs" />
     <Compile Include="Assets\SunScript.cs" />
     <Compile Include="Assets\RadaForCrab.cs" />
+    <Compile Include="Assets\Pearl.cs" />
+    <Compile Include="Assets\BallPiece.cs" />
+    <Compile Include="Assets\CannonTrapScp.cs" />
     <Compile Include="Assets\PlayerCoinsManager.cs" />
     <Compile Include="Assets\EnemyBehavior.cs" />
     <Compile Include="Assets\JumpParticle.cs" />
