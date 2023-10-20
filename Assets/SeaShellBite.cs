@@ -14,6 +14,14 @@ public class SeaShellBite : MonoBehaviour
         GameObject player = GameObject.FindGameObjectWithTag("PlayerHitBox");
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
+    private void Update()
+    {
+        GameObject[] GameObj = GameObject.FindGameObjectsWithTag("PlayerHitBox");
+        foreach (GameObject Obj in GameObj)
+        {
+            Physics2D.IgnoreCollision(Obj.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
+    }
 
     // Update is called once per frame
     private void OnTriggerEnter2D(Collider2D collision)

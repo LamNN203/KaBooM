@@ -189,3 +189,4 @@ MonoBehaviour:
   piece1: {fileID: 1764660787243010995, guid: 7b3eb116d7eaf9c4aabf8093dae8017d, type: 3}
   piece2: {fileID: 8559661385146147717, guid: ba558b42b9e476d4dbaaef146f45e71f, type: 3}
   piece3: {fileID: 4855269200062007273, guid: 4ea8de60a4d33574b888e7f3fe695d45, type: 3}
+  me: {fileID: 0}

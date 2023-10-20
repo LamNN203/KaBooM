@@ -82,6 +82,7 @@ public class SeaShell : MonoBehaviour
         rg.velocity = new Vector2(BiteForceX, BiteForceY);
         state = State.bitting;
         CanBite = false;
+        timer = 0;
     }
 
     public void shooting()
@@ -104,6 +105,13 @@ public class SeaShell : MonoBehaviour
         if (collision.gameObject.tag == "PlayerHitBox")
         {
             state = State.hitted;
+            TakeHit(1);
+        }
+    }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerHitBox")
+        {
             TakeHit(1);
         }
     }

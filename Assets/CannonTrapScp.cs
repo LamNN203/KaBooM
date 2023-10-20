@@ -84,6 +84,14 @@ public class CannonTrapScp : MonoBehaviour
             TakeHit(1);
         }
     }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerHitBox")
+        {
+            state = State.hitted;
+            TakeHit(1);
+        }
+    }
 
     public void Died()
     {

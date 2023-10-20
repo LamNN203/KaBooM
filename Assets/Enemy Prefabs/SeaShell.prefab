@@ -280,14 +280,14 @@ MonoBehaviour:
   state: 0
   CanShoot: 0
   CanBite: 0
-  ShootRate: 2.06
-  BiteRate: 2.7
+  ShootRate: 2.18
+  BiteRate: 3.13
   timer: 0
   ShootTimer: 0
   ShootForceX: -18.4
   ShootForceY: 0.7
-  BiteForceX: -3.89
-  BiteForceY: 1.21
+  BiteForceX: -1.87
+  BiteForceY: 1.24
   HP: 3
   hurtforce: 1
 --- !u!1 &6052521328820886147

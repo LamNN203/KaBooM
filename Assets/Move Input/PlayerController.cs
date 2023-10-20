@@ -53,6 +53,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""1287754c-fb13-4c1b-b610-7280bde6c640"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -121,6 +130,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""AttackG"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""fd686960-f661-4763-a759-c9138cab7eee"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -132,6 +152,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Land_Move = m_Land.FindAction("Move", throwIfNotFound: true);
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
         m_Land_AttackG = m_Land.FindAction("AttackG", throwIfNotFound: true);
+        m_Land_Throw = m_Land.FindAction("Throw", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -196,6 +217,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Land_Move;
     private readonly InputAction m_Land_Jump;
     private readonly InputAction m_Land_AttackG;
+    private readonly InputAction m_Land_Throw;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
@@ -203,6 +225,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Land_Move;
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
         public InputAction @AttackG => m_Wrapper.m_Land_AttackG;
+        public InputAction @Throw => m_Wrapper.m_Land_Throw;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -221,6 +244,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @AttackG.started += instance.OnAttackG;
             @AttackG.performed += instance.OnAttackG;
             @AttackG.canceled += instance.OnAttackG;
+            @Throw.started += instance.OnThrow;
+            @Throw.performed += instance.OnThrow;
+            @Throw.canceled += instance.OnThrow;
         }
 
         private void UnregisterCallbacks(ILandActions instance)
@@ -234,6 +260,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @AttackG.started -= instance.OnAttackG;
             @AttackG.performed -= instance.OnAttackG;
             @AttackG.canceled -= instance.OnAttackG;
+            @Throw.started -= instance.OnThrow;
+            @Throw.performed -= instance.OnThrow;
+            @Throw.canceled -= instance.OnThrow;
         }
 
         public void RemoveCallbacks(ILandActions instance)
@@ -256,5 +285,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnJump(InputAction.CallbackContext context);
         void OnAttackG(InputAction.CallbackContext context);
+        void OnThrow(InputAction.CallbackContext context);
     }
 }

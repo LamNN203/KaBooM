@@ -16,6 +16,7 @@ public class CrabBehavior : MonoBehaviour
     public State state = State.idle;
     public LayerMask ground;
     public bool Facingleft = true;
+    public bool IsDead = false;
     
     public float OriginPoint;
 
@@ -27,6 +28,7 @@ public class CrabBehavior : MonoBehaviour
     public Transform me;
     public GameObject HitBox;
     public GameObject Reward;
+    public RadaForCrab Rada;
 
      void Start()
     {
@@ -34,17 +36,22 @@ public class CrabBehavior : MonoBehaviour
         coll = GetComponent<Collider2D>();
         me = GetComponent<Transform>();
         anim = GetComponent<Animator>();
+        Rada = GetComponentInChildren<RadaForCrab>();
 
         OriginPoint = transform.position.x;
         Player = FindObjectOfType<controller>();
         player = GameObject.FindGameObjectWithTag("Player").transform;
     }
     void FixedUpdate()
-    {
-            if(state == State.run)
+    { 
+        if(IsDead == false)
+        {
+            if (state == State.run)
             {
-             Move();
+                Move();
             }
+        }
+            
         anim.SetInteger("state", (int)state); 
     }
     private void Move()
@@ -87,6 +94,13 @@ public class CrabBehavior : MonoBehaviour
             TakeHit(1);
         }
     }
+    public void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "PlayerHitBox")
+        {
+            TakeHit(1);
+        }
+    }
     public void TakeHit(int damage)
     {
         HP -= damage; // Tru mau
@@ -94,7 +108,12 @@ public class CrabBehavior : MonoBehaviour
         Knockback();
         if (HP <= 0)
         {
+            IsDead = true;
+            Knockback();
+            Rada.coll.enabled = false;
+            coll.enabled = false;
             OnDeath();
+
         }
     }
     public void Knockback()
@@ -111,6 +130,7 @@ public class CrabBehavior : MonoBehaviour
 
     public void OnDeath()
     {
+        
         anim.SetBool("IsDeath", true);
         Debug.Log("death");
     }

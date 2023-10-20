@@ -64,6 +64,7 @@
     <Compile Include="Assets\BarrelScrip.cs" />
     <Compile Include="Assets\idleBehaviour.cs" />
     <Compile Include="Assets\Trans3.cs" />
+    <Compile Include="Assets\Data\Data.cs" />
     <Compile Include="Assets\PieceParticle.cs" />
     <Compile Include="Assets\PlayerHealthManager.cs" />
     <Compile Include="Assets\Move Input\PlayerController.cs" />
@@ -71,10 +72,13 @@
     <Compile Include="Assets\DustParticle.cs" />
     <Compile Include="Assets\SeaShell.cs" />
     <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+    <Compile Include="Assets\SaveManager.cs" />
     <Compile Include="Assets\coinBehaviour.cs" />
     <Compile Include="Assets\Trans2.cs" />
     <Compile Include="Assets\HitboxCrab.cs" />
+    <Compile Include="Assets\FakeLoadScrip.cs" />
     <Compile Include="Assets\SpawnCloud.cs" />
+    <Compile Include="Assets\GameManager.cs" />
     <Compile Include="Assets\SeaShellRada.cs" />
     <Compile Include="Assets\CombatSystem.cs" />
     <Compile Include="Assets\CloudScrips.cs" />
@@ -88,12 +92,15 @@
     <Compile Include="Assets\Parallax.cs" />
     <Compile Include="Assets\DealDamage.cs" />
     <Compile Include="Assets\SunScript.cs" />
+    <Compile Include="Assets\swordIsThrow.cs" />
     <Compile Include="Assets\RadaForCrab.cs" />
     <Compile Include="Assets\Pearl.cs" />
     <Compile Include="Assets\BallPiece.cs" />
+    <Compile Include="Assets\shipScrips.cs" />
     <Compile Include="Assets\CannonTrapScp.cs" />
     <Compile Include="Assets\PlayerCoinsManager.cs" />
     <Compile Include="Assets\EnemyBehavior.cs" />
+    <Compile Include="Assets\ControllerNoSword.cs" />
     <Compile Include="Assets\JumpParticle.cs" />
   </ItemGroup>
   <ItemGroup>

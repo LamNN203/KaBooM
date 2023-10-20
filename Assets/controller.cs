@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class controller : MonoBehaviour
 {
     PlayerController controls;
     float direction = 0;
-    public float ydirection = 0;
+    private float ydirection = 0;
     public float Jumpforce = 0;
     public float speed;
     public float attackDash = 0;
@@ -22,6 +23,9 @@ public class controller : MonoBehaviour
     public bool isAttacking = false;
     public static controller instance;
     public int tempCoins;
+    public float ThrowForceX;
+    public float ThrowForceY;
+    public bool HaveSword = true;
 
     public Rigidbody2D rg;
     public CapsuleCollider2D boxcl;
@@ -29,23 +33,16 @@ public class controller : MonoBehaviour
     public GameObject Dustparticle;
     public GameObject JumpParticle;
     public GameObject FallParticle;
+    public Rigidbody2D ThorwingSword;
     public PlayerHealthManager HealthManager;
     public PlayerCoinsManager CoinsManager;
-    public coinBehaviour CoinsBehaviour;
+ //   public coinBehaviour CoinsBehaviour;
 
-    public enum State { idle, running, jumping, falling, hurt, doubleJump }
+
+    public enum State { idle, running, jumping, falling, hurt, doubleJump,Throw, NoIdle, NoRunning, NoJumping, NoFalling, NoHurt, }
 
     private void Awake()
     {
-        //Get component
-        instance = this;
-        rg = GetComponent<Rigidbody2D>();
-        boxcl = GetComponent<CapsuleCollider2D>();
-        anim = GetComponent<Animator>();
-        HealthManager = FindObjectOfType<PlayerHealthManager>();
-        CoinsManager = FindObjectOfType<PlayerCoinsManager>();
-        CoinsBehaviour = FindObjectOfType<coinBehaviour>();
-
         //Input system
 
         controls = new PlayerController();
@@ -57,6 +54,7 @@ public class controller : MonoBehaviour
         };
         controls.Land.Jump.performed += ctx => Jump();
         controls.Land.AttackG.performed += ctx => Attack();
+        controls.Land.Throw.performed += ctx => StartThrow();
 
     }
 
@@ -67,13 +65,20 @@ public class controller : MonoBehaviour
 
     void Start()
     {
-
+        //Get component
+        instance = this;
+        rg = GetComponent<Rigidbody2D>();
+        boxcl = GetComponent<CapsuleCollider2D>();
+        anim = GetComponent<Animator>();
+        HealthManager = FindObjectOfType<PlayerHealthManager>();
+        CoinsManager = FindObjectOfType<PlayerCoinsManager>();
+        //CoinsBehaviour = FindObjectOfType<coinBehaviour>();
     }
 
     private void FixedUpdate()
     {
         hurttimer = hurttimer + Time.deltaTime;
-        if (state != State.hurt)
+        if (state != State.hurt && state != State.Throw )
         {
             Movee();
         }
@@ -136,9 +141,12 @@ public class controller : MonoBehaviour
     }
     public void Jump()
     {
-        rg.velocity = new Vector2(rg.velocity.x, Jumpforce);
-        state = State.jumping;
-        Instantiate(JumpParticle, new Vector3(transform.position.x, transform.position.y - 0.08f, 0), transform.rotation);
+        if(state != State.hurt)
+        {
+            rg.velocity = new Vector2(rg.velocity.x, Jumpforce);
+            state = State.jumping;
+            Instantiate(JumpParticle, new Vector3(transform.position.x, transform.position.y - 0.08f, 0), transform.rotation);
+        }  
     }
     void Animation()
     {
@@ -170,7 +178,7 @@ public class controller : MonoBehaviour
 
         }
         //hoat anh chay
-        else if (Mathf.Abs(rg.velocity.x) > 3f)
+        else if (Mathf.Abs(rg.velocity.x) > 3f && state != State.hurt)
         {
             state = State.running;
 
@@ -178,13 +186,25 @@ public class controller : MonoBehaviour
         //hoat anh idle
         else
         {
-            state = State.idle;
+            if(state != State.Throw)
+            {
+                state = State.idle;
+            }
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        // va cham voi enemy
+        //Va cham voi item kiem
+        if (other.gameObject.tag == "SwordItem")
+        {
+            HaveSword = true;
+            anim.SetBool("HaveSword", true);
+            other.gameObject.SetActive(false);
+        }
+
+
+            // va cham voi enemy
         if (other.gameObject.tag == "Enemy")
         {
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
@@ -249,6 +269,39 @@ public class controller : MonoBehaviour
     {
         state = State.idle;
     }
+
+    public void StartThrow()
+    {
+        if (HaveSword == true)
+        {
+            state = State.Throw;
+            Debug.Log("throw");
+        }
+    }
+    public void ThrowSword()
+    {
+        
+        if (state != State.hurt)
+        {
+            Rigidbody2D Clone;
+            if (transform.localScale.x < 0)
+            {
+                Clone = Instantiate(ThorwingSword, new Vector2(transform.position.x - 0.65f, transform.position.y), transform.rotation);
+                Clone.velocity = new Vector2(-ThrowForceX, ThrowForceY);
+            }
+            else if (transform.localScale.x > 0)
+            {
+                Clone = Instantiate(ThorwingSword, new Vector2(transform.position.x + 0.65f, transform.position.y), transform.rotation);
+                Clone.velocity = new Vector2(ThrowForceX, ThrowForceY);
+            }
+
+            HaveSword = false;
+            anim.SetBool("HaveSword", false);
+            state = State.NoIdle;
+            
+        }
+    }
+
 }
 
 

@@ -8,13 +8,13 @@ public class Cam : MonoBehaviour
     public float FollowSpeed;
     public float yOffset;
     public float xOffset;
-    public controller target;
+    public controller target1;
     public Transform thiscam;
 
     void Start()
     {
-        target = FindObjectOfType<controller>();
-        thiscam = target.transform;
+        target1 = FindObjectOfType<controller>();
+        thiscam = target1.transform;
     }
 
     // Update is called once per frame

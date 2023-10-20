@@ -7,10 +7,15 @@ public class RadaForCrab : MonoBehaviour
 {
     public CrabBehavior crab;
     public BoxCollider2D coll;
-    void Start()
+    void Awake()
     {
         coll = GetComponent<BoxCollider2D>();
         crab = GetComponentInParent<CrabBehavior>();
+        //GameObject[] GameObj = GameObject.FindGameObjectsWithTag("PlayerHitBox");
+        //foreach (GameObject Obj in GameObj)
+        //{
+        //    Physics2D.IgnoreCollision(Obj.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        //}
         GameObject player = GameObject.FindGameObjectWithTag("PlayerHitBox");
         Physics2D.IgnoreCollision(player.GetComponent<Collider2D>(), GetComponent<Collider2D>());
     }
@@ -25,6 +30,15 @@ public class RadaForCrab : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //GameObject[] GameObj = GameObject.FindGameObjectsWithTag("PlayerHitBox");
+        //foreach (GameObject Obj in GameObj)
+        //{
+        //    Physics2D.IgnoreCollision(Obj.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        //}
+        GameObject[] GameObj = GameObject.FindGameObjectsWithTag("PlayerHitBox");
+        foreach (GameObject Obj in GameObj)
+        {
+            Physics2D.IgnoreCollision(Obj.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
     }
 }
