@@ -9,6 +9,7 @@ public class SeaShell : MonoBehaviour
     public Rigidbody2D rg;
     public Rigidbody2D Ball;
     public Collider2D Col;
+    public Transform player;
     public GameObject FireEffect;
     public GameObject Part1;
     public GameObject Part2;
@@ -38,12 +39,23 @@ public class SeaShell : MonoBehaviour
         Col = GetComponent<Collider2D>();
         anim = GetComponent<Animator>();
         Player = FindObjectOfType<controller>();
+        player = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
     // Update is called once per frame
     void Update()
     {
         anim.SetInteger("state", (int)state);
+
+        if (player.transform.position.x < transform.position.x)
+        {
+            transform.localScale = new Vector2(1, 1);
+        }
+        else if (player.transform.position.x > transform.position.x)
+        {
+            transform.localScale = new Vector2(-1, 1);
+        }
+
 
         if (state != State.hitted)
         {
@@ -79,20 +91,40 @@ public class SeaShell : MonoBehaviour
 
     public void Biting()
     {
-        rg.velocity = new Vector2(BiteForceX, BiteForceY);
-        state = State.bitting;
-        CanBite = false;
-        timer = 0;
+        if (player.transform.position.x < transform.position.x)
+        {
+            rg.velocity = new Vector2(-BiteForceX, BiteForceY);
+            state = State.bitting;
+            CanBite = false;
+            timer = 0;
+        }
+        else if (player.transform.position.x > transform.position.x)
+        {
+            rg.velocity = new Vector2(BiteForceX, BiteForceY);
+            state = State.bitting;
+            CanBite = false;
+            timer = 0;
+        }
     }
 
     public void shooting()
     {
         if (state != State.hitted)
         {
-            Rigidbody2D Clone;
-            Clone = Instantiate(Ball, new Vector2(transform.position.x - 0.8f, transform.position.y-0.32f), transform.rotation);
-            Clone.velocity = new Vector2(ShootForceX, ShootForceY);
-            Instantiate(FireEffect, new Vector2(transform.position.x - 0.8f, transform.position.y - 0.32f), transform.rotation);
+            if (player.transform.position.x < transform.position.x)
+            {
+                Rigidbody2D Clone;
+                Clone = Instantiate(Ball, new Vector2(transform.position.x - 0.8f, transform.position.y - 0.32f), transform.rotation);
+                Clone.velocity = new Vector2(-ShootForceX, ShootForceY);
+                Instantiate(FireEffect, new Vector2(transform.position.x - 0.8f, transform.position.y - 0.32f), transform.rotation);
+            }
+            else if (player.transform.position.x > transform.position.x)
+            {
+                Rigidbody2D Clone;
+                Clone = Instantiate(Ball, new Vector2(transform.position.x + 0.8f, transform.position.y - 0.32f), transform.rotation);
+                Clone.velocity = new Vector2(ShootForceX, ShootForceY);
+                Instantiate(FireEffect, new Vector2(transform.position.x + 0.8f, transform.position.y - 0.32f), transform.rotation);
+            }
         }
     }
     public void BackToIdle()

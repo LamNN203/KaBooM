@@ -24,7 +24,10 @@ public class RadaForCrab : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            crab.state = CrabBehavior.State.run;
+            if(crab.CanAction == true)
+            {
+                crab.state = CrabBehavior.State.run;
+            }
         }
     }
     // Update is called once per frame

@@ -12,6 +12,9 @@ public class CrabBehavior : MonoBehaviour
     public float hurtforce = 0;
     public float RunForce;
     public float timer;
+    public float timer2;
+    public float Delaymove;
+    public bool CanAction = true;
     public float Distance;
     public State state = State.idle;
     public LayerMask ground;
@@ -29,6 +32,7 @@ public class CrabBehavior : MonoBehaviour
     public GameObject HitBox;
     public GameObject Reward;
     public RadaForCrab Rada;
+    public SlowMotion Slow;
 
      void Start()
     {
@@ -37,6 +41,7 @@ public class CrabBehavior : MonoBehaviour
         me = GetComponent<Transform>();
         anim = GetComponent<Animator>();
         Rada = GetComponentInChildren<RadaForCrab>();
+        Slow = FindObjectOfType<SlowMotion>();
 
         OriginPoint = transform.position.x;
         Player = FindObjectOfType<controller>();
@@ -46,12 +51,17 @@ public class CrabBehavior : MonoBehaviour
     { 
         if(IsDead == false)
         {
-            if (state == State.run)
+            if (state == State.run && CanAction == true)
             {
                 Move();
             }
         }
-            
+        timer2 = timer2 + Time.deltaTime;
+        if (timer2 > Delaymove)
+        {
+            CanAction = true;
+        }
+
         anim.SetInteger("state", (int)state); 
     }
     private void Move()
@@ -74,7 +84,10 @@ public class CrabBehavior : MonoBehaviour
     }
     public void Attack()
     {
-        state = State.attack;
+        if(CanAction == true)
+        {
+           state = State.attack;
+        }
     }
     public void BacktoIdle()
     {
@@ -99,6 +112,22 @@ public class CrabBehavior : MonoBehaviour
         if (collision.gameObject.tag == "PlayerHitBox")
         {
             TakeHit(1);
+        }
+        if(collision.gameObject.tag == "Player")
+        {
+            if (Player.gameObject.transform.position.x > transform.position.x)
+            {
+                rg.velocity = new Vector2(-hurtforce + 2, hurtforce - 1);
+            }
+            if (Player.gameObject.transform.position.x < transform.position.x)
+            {
+                rg.velocity = new Vector2(hurtforce - 2, hurtforce - 1);
+            }
+            CanAction = false;
+            state = State.idle;
+            timer2 = 0;
+            Slow.DoSlowMotion();
+
         }
     }
     public void TakeHit(int damage)

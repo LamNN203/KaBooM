@@ -123,16 +123,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 302fc35edbf619c4397a8d99a38c40e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 0
-  hurtforce: 0
+  HP: 3
+  hurtforce: 3
   RunForce: 2.84
   timer: 0
+  timer2: 0
+  Delaymove: 2
+  CanAction: 1
   Distance: 0.9
   state: 0
   ground:
     serializedVersion: 2
     m_Bits: 64
   Facingleft: 1
+  IsDead: 0
   OriginPoint: 0
   Player: {fileID: 0}
   anim: {fileID: 0}
@@ -142,6 +146,7 @@ MonoBehaviour:
   me: {fileID: 0}
   HitBox: {fileID: 0}
   Reward: {fileID: 7653143263404409554, guid: 5f1acae1dca5b6d4e86cfa399dd98b66, type: 3}
+  Rada: {fileID: 0}
 --- !u!50 &2240676945258064640
 Rigidbody2D:
   serializedVersion: 4
@@ -269,7 +274,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0015242696, y: -0.041514277}
+  m_Offset: {x: 0.0015242696, y: -0.089371115}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -280,7 +285,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.13050973, y: 0.26726687}
+  m_Size: {x: 0.13050973, y: 0.1715532}
   m_EdgeRadius: 0
 --- !u!114 &2261149809742896798
 MonoBehaviour:
@@ -361,7 +366,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.038616896, y: 0.2799728}
+  m_Offset: {x: -0.038617134, y: 0.4678939}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -372,7 +377,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.6268425, y: 1}
+  m_Size: {x: 8.6268425, y: 1.6577238}
   m_EdgeRadius: 0
 --- !u!114 &5972661389654592546
 MonoBehaviour:

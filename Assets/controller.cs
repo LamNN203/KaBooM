@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class controller : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class controller : MonoBehaviour
     private float hurttimer;
     public float Hurtforce = 0;
     public bool isAttacking = false;
+    public bool isAttacking2 = false;
+    public bool isFacingleft = false;
     public static controller instance;
     public int tempCoins;
     public float ThrowForceX;
@@ -36,6 +39,9 @@ public class controller : MonoBehaviour
     public Rigidbody2D ThorwingSword;
     public PlayerHealthManager HealthManager;
     public PlayerCoinsManager CoinsManager;
+    public Slider YforceThrowChange;
+    public TimeFreezer FreezyTimes;
+    public SlowMotion SlowDown;
  //   public coinBehaviour CoinsBehaviour;
 
 
@@ -67,18 +73,23 @@ public class controller : MonoBehaviour
     {
         //Get component
         instance = this;
+        YforceThrowChange = FindAnyObjectByType<Slider>();
         rg = GetComponent<Rigidbody2D>();
         boxcl = GetComponent<CapsuleCollider2D>();
         anim = GetComponent<Animator>();
         HealthManager = FindObjectOfType<PlayerHealthManager>();
         CoinsManager = FindObjectOfType<PlayerCoinsManager>();
+        FreezyTimes = FindObjectOfType<TimeFreezer>();
+        SlowDown = FindObjectOfType<SlowMotion>();
         //CoinsBehaviour = FindObjectOfType<coinBehaviour>();
     }
 
     private void FixedUpdate()
     {
+        ThrowForceY = YforceThrowChange.value;
+
         hurttimer = hurttimer + Time.deltaTime;
-        if (state != State.hurt && state != State.Throw )
+        if (state != State.hurt && state != State.Throw && isAttacking2 != true)
         {
             Movee();
         }
@@ -95,6 +106,7 @@ public class controller : MonoBehaviour
         if (direction < 0)
         {
             transform.localScale = new Vector2(-1, 1);
+            isFacingleft = true;
             if (timer < Dustrate)
             {
                 timer = timer + Time.deltaTime;
@@ -113,6 +125,7 @@ public class controller : MonoBehaviour
         else if (direction > 0)
         {
             transform.localScale = new Vector2(1, 1);
+            isFacingleft = false;
             if (timer < Dustrate)
             {
                 timer = timer + Time.deltaTime;
@@ -210,6 +223,7 @@ public class controller : MonoBehaviour
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
             state = State.hurt;
+            SlowDown.DoSlowMotion();
             HealthManager.TakeDamage(1);
 
             if (other.gameObject.transform.position.x > transform.position.x)
@@ -226,6 +240,7 @@ public class controller : MonoBehaviour
         {
             state = State.hurt;
             HealthManager.TakeDamage(3);
+            SlowDown.DoSlowMotion();
 
             if (other.gameObject.transform.position.x > transform.position.x)
             {
@@ -248,22 +263,35 @@ public class controller : MonoBehaviour
             tempCoins = Coins.Value;
             CoinsManager.TakeCoins(tempCoins);
         }
+        if (trig.gameObject.tag == "SwordBarrel")
+        {
+            HaveSword = true;
+            anim.SetBool("HaveSword", true);
+        }
+
     }
 
 
     // Player Combat Logic
     public void Attack()
     {
-      //  dashwhenAtk();
-        if (!isAttacking)
+        //  dashwhenAtk();
+        if (!isAttacking && state != State.running)
         {
             isAttacking = true;
-            
+            isAttacking2 = true;
         }
     }
     public void dashwhenAtk()
     {
-        rg.velocity = new Vector2(attackDash, 0);
+        if (isFacingleft == false)
+        {
+            rg.velocity = new Vector2(attackDash, 1f);
+        }
+        else if (isFacingleft == true)
+        {
+            rg.velocity = new Vector2(-attackDash, 1f);
+        }    
     }
     public void StopHurt()
     {
@@ -300,6 +328,10 @@ public class controller : MonoBehaviour
             state = State.NoIdle;
             
         }
+    }
+    public void CancelAttack()
+    {
+        isAttacking2 = false;
     }
 
 }
