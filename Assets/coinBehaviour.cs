@@ -7,7 +7,6 @@ public class coinBehaviour : MonoBehaviour
 {
     // Start is called before the first frame update
     public int Value;
-    public int bounce;
     public Animator anim;
     public CircleCollider2D collision;
     public Rigidbody2D rg;

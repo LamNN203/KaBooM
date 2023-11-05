@@ -26,9 +26,11 @@ public class controller : MonoBehaviour
     public bool isFacingleft = false;
     public static controller instance;
     public int tempCoins;
+    public int Potion;
     public float ThrowForceX;
     public float ThrowForceY;
     public bool HaveSword = true;
+    public bool Dialogue = false;
 
     public Rigidbody2D rg;
     public CapsuleCollider2D boxcl;
@@ -36,13 +38,19 @@ public class controller : MonoBehaviour
     public GameObject Dustparticle;
     public GameObject JumpParticle;
     public GameObject FallParticle;
+    public GameObject HittedEffect;
+    public GameObject AttackEffect1;
+    public GameObject AttackEffect2;
+    public GameObject AttackEffect3;
+    public GameObject HealthDrink;
     public Rigidbody2D ThorwingSword;
     public PlayerHealthManager HealthManager;
     public PlayerCoinsManager CoinsManager;
+    public PlayerPotionManager PotionManager;
     public Slider YforceThrowChange;
     public TimeFreezer FreezyTimes;
     public SlowMotion SlowDown;
- //   public coinBehaviour CoinsBehaviour;
+    //   public coinBehaviour CoinsBehaviour;
 
 
     public enum State { idle, running, jumping, falling, hurt, doubleJump,Throw, NoIdle, NoRunning, NoJumping, NoFalling, NoHurt, }
@@ -61,6 +69,7 @@ public class controller : MonoBehaviour
         controls.Land.Jump.performed += ctx => Jump();
         controls.Land.AttackG.performed += ctx => Attack();
         controls.Land.Throw.performed += ctx => StartThrow();
+        controls.Land.Potion.performed += ctx => UsePotion();
 
     }
 
@@ -79,6 +88,7 @@ public class controller : MonoBehaviour
         anim = GetComponent<Animator>();
         HealthManager = FindObjectOfType<PlayerHealthManager>();
         CoinsManager = FindObjectOfType<PlayerCoinsManager>();
+        PotionManager = FindObjectOfType<PlayerPotionManager>();
         FreezyTimes = FindObjectOfType<TimeFreezer>();
         SlowDown = FindObjectOfType<SlowMotion>();
         //CoinsBehaviour = FindObjectOfType<coinBehaviour>();
@@ -223,6 +233,7 @@ public class controller : MonoBehaviour
             Enemy enemy = other.gameObject.GetComponent<Enemy>();
 
             state = State.hurt;
+            HitEffect();
             SlowDown.DoSlowMotion();
             HealthManager.TakeDamage(1);
 
@@ -239,6 +250,7 @@ public class controller : MonoBehaviour
         if (other.gameObject.tag == "CannonBall")
         {
             state = State.hurt;
+            HitEffect();
             HealthManager.TakeDamage(3);
             SlowDown.DoSlowMotion();
 
@@ -267,6 +279,10 @@ public class controller : MonoBehaviour
         {
             HaveSword = true;
             anim.SetBool("HaveSword", true);
+        }
+        if (trig.gameObject.tag == "Rada")
+        {
+            Dialogue = true;
         }
 
     }
@@ -332,6 +348,68 @@ public class controller : MonoBehaviour
     public void CancelAttack()
     {
         isAttacking2 = false;
+    }
+
+    public void HitEffect()
+    {
+        Instantiate(HittedEffect, transform.position, transform.rotation);
+    }
+
+    public void attackEffect1()
+    {
+        if (transform.localScale.x < 0)
+        {
+            GameObject a = Instantiate(AttackEffect1, transform.position, transform.rotation, AttackEffect1.transform.parent);
+            a.transform.localScale = new Vector3(-1,1,1);
+            a.transform.position = new Vector3(transform.position.x - 1.1f, transform.position.y-0.1f, 0);
+        }
+        else if (transform.localScale.x > 0)
+        {
+            GameObject a = Instantiate(AttackEffect1, transform.position, transform.rotation, AttackEffect1.transform.parent);
+            a.transform.localScale = new Vector3(1, 1, 1);
+            a.transform.position = new Vector3(transform.position.x + 1.1f, transform.position.y-0.1f, 0);
+        }
+    }
+    public void attackEffect2()
+    {
+        if (transform.localScale.x < 0)
+        {
+            GameObject a = Instantiate(AttackEffect2, transform.position, transform.rotation, AttackEffect1.transform.parent);
+            a.transform.localScale = new Vector3(-1, 1, 1);
+            a.transform.position = new Vector3(transform.position.x - 1.1f, transform.position.y - 0.1f, 0);
+        }
+        else if (transform.localScale.x > 0)
+        {
+            GameObject a = Instantiate(AttackEffect2, transform.position, transform.rotation, AttackEffect1.transform.parent);
+            a.transform.localScale = new Vector3(1, 1, 1);
+            a.transform.position = new Vector3(transform.position.x + 1.1f, transform.position.y - 0.1f, 0);
+        }
+    }
+    public void attackEffect3()
+    {
+        if (transform.localScale.x < 0)
+        {
+            GameObject a = Instantiate(AttackEffect3, transform.position, transform.rotation, AttackEffect1.transform.parent);
+            a.transform.localScale = new Vector3(-1, 1, 1);
+            a.transform.position = new Vector3(transform.position.x - 1.1f, transform.position.y - 0.1f, 0);
+        }
+        else if (transform.localScale.x > 0)
+        {
+            GameObject a = Instantiate(AttackEffect3, transform.position, transform.rotation, AttackEffect1.transform.parent);
+            a.transform.localScale = new Vector3(1, 1, 1);
+            a.transform.position = new Vector3(transform.position.x + 1.1f, transform.position.y - 0.1f, 0);
+        }
+    }
+    
+    public void UsePotion()
+    {
+        if(PotionManager.CurrentPotion > 0 && HealthManager.Health < 5)
+        {
+            Potion -= 1;
+            HealthManager.Heal(3);
+            PotionManager.CurrentPotion -= 1;
+            Instantiate(HealthDrink, transform.position, transform.rotation);
+        }
     }
 
 }

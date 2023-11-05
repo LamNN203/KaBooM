@@ -146,7 +146,10 @@ MonoBehaviour:
   me: {fileID: 0}
   HitBox: {fileID: 0}
   Reward: {fileID: 7653143263404409554, guid: 5f1acae1dca5b6d4e86cfa399dd98b66, type: 3}
+  HittedEffect: {fileID: 6716172565212862499, guid: 2a0d9a7782bb1434b96ada431888f491, type: 3}
+  AtkEffect: {fileID: 7287140323749650806, guid: 783698f8ea08f0847a5f60a210a862af, type: 3}
   Rada: {fileID: 0}
+  Slow: {fileID: 0}
 --- !u!50 &2240676945258064640
 Rigidbody2D:
   serializedVersion: 4

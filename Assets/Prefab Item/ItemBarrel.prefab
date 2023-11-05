@@ -129,7 +129,7 @@ MonoBehaviour:
   piece2: {fileID: 7153423880082741504, guid: d43984fc2dff45a49a14f12cf88e2e03, type: 3}
   piece3: {fileID: 1137361843611484584, guid: 1808b0b0809ace4438fdab504a3a006a, type: 3}
   piece4: {fileID: 4924817252375711246, guid: a6e694f8fd587744b86ba8c6f281ed06, type: 3}
-  Reward: {fileID: 0}
+  Reward: {fileID: 7653143263404409554, guid: 5f1acae1dca5b6d4e86cfa399dd98b66, type: 3}
 --- !u!61 &7537922176021809765
 BoxCollider2D:
   m_ObjectHideFlags: 0

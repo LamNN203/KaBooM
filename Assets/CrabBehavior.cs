@@ -31,6 +31,8 @@ public class CrabBehavior : MonoBehaviour
     public Transform me;
     public GameObject HitBox;
     public GameObject Reward;
+    public GameObject HittedEffect;
+    public GameObject AtkEffect;
     public RadaForCrab Rada;
     public SlowMotion Slow;
 
@@ -75,11 +77,11 @@ public class CrabBehavior : MonoBehaviour
 
         if(player.transform.position.x < transform.position.x) 
         {
-            rg.velocity = new Vector2(-RunForce, 0);
+            rg.velocity = new Vector2(-RunForce, -1);
         }
         else if (player.transform.position.x > transform.position.x)
         {
-            rg.velocity = new Vector2(RunForce, 0);
+            rg.velocity = new Vector2(RunForce, -1);
         }
     }
     public void Attack()
@@ -135,6 +137,7 @@ public class CrabBehavior : MonoBehaviour
         HP -= damage; // Tru mau
         // healthctr.SetHealth(hitpoints, Maxhitpoins);
         Knockback();
+        Instantiate(HittedEffect, me.position, me.rotation);
         if (HP <= 0)
         {
             IsDead = true;
@@ -162,6 +165,10 @@ public class CrabBehavior : MonoBehaviour
         
         anim.SetBool("IsDeath", true);
         Debug.Log("death");
+    }
+    public void Attackeffect()
+    {
+        Instantiate(AtkEffect, me.position, me.rotation);
     }
     public void DeleteCorpse()
     {

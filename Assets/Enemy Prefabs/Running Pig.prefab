@@ -276,7 +276,9 @@ MonoBehaviour:
   player: {fileID: 0}
   me: {fileID: 0}
   Reward: {fileID: 7653143263404409554, guid: 5f1acae1dca5b6d4e86cfa399dd98b66, type: 3}
+  HittedEffect: {fileID: 6716172565212862499, guid: 2a0d9a7782bb1434b96ada431888f491, type: 3}
   Rada: {fileID: 0}
+  Slow: {fileID: 0}
 --- !u!95 &6078226204668862101
 Animator:
   serializedVersion: 5

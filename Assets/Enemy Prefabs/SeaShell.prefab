@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 4021355687177829274}
   - component: {fileID: 5751230398687838295}
   - component: {fileID: 5005366367705708270}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeaShellRada
-  m_TagString: Untagged
+  m_TagString: Rada
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -274,6 +274,7 @@ MonoBehaviour:
   Col: {fileID: 0}
   player: {fileID: 0}
   FireEffect: {fileID: 7232846634505867805, guid: 83d87ebf2f196e8409e9525f076230a2, type: 3}
+  HittedEffect: {fileID: 6716172565212862499, guid: 2a0d9a7782bb1434b96ada431888f491, type: 3}
   Part1: {fileID: 8380914560528553912, guid: a4beda0bb43ca794e82048e38b54485f, type: 3}
   Part2: {fileID: 6716028590961040816, guid: 818e077dbcca84d46aaebf667e8ca903, type: 3}
   Part3: {fileID: 1280808835205674165, guid: a2c67139676f1564aabdd51ec5af950e, type: 3}
@@ -302,9 +303,9 @@ GameObject:
   - component: {fileID: 4988919535287810513}
   - component: {fileID: 3246135182175473055}
   - component: {fileID: 9146835104500326574}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SeaShellBite
-  m_TagString: Untagged
+  m_TagString: Rada
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

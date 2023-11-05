@@ -11,6 +11,7 @@ public class SeaShell : MonoBehaviour
     public Collider2D Col;
     public Transform player;
     public GameObject FireEffect;
+    public GameObject HittedEffect;
     public GameObject Part1;
     public GameObject Part2;
     public GameObject Part3;
@@ -161,6 +162,7 @@ public class SeaShell : MonoBehaviour
         HP -= damage; // Tru mau
         // healthctr.SetHealth(hitpoints, Maxhitpoins);
         Knockback();
+        Instantiate(HittedEffect, transform.position, transform.rotation);
         if (HP <= 0)
         {
             OnDeath();

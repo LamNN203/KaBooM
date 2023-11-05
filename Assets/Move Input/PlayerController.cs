@@ -62,6 +62,15 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": ""Press"",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Potion"",
+                    ""type"": ""Button"",
+                    ""id"": ""d267ef78-cbe3-403c-a8f8-52ff0aea2038"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": ""Press"",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -141,6 +150,17 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
                     ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5b147048-dc60-457d-9990-3ec11222f266"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Potion"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -153,6 +173,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         m_Land_Jump = m_Land.FindAction("Jump", throwIfNotFound: true);
         m_Land_AttackG = m_Land.FindAction("AttackG", throwIfNotFound: true);
         m_Land_Throw = m_Land.FindAction("Throw", throwIfNotFound: true);
+        m_Land_Potion = m_Land.FindAction("Potion", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -218,6 +239,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
     private readonly InputAction m_Land_Jump;
     private readonly InputAction m_Land_AttackG;
     private readonly InputAction m_Land_Throw;
+    private readonly InputAction m_Land_Potion;
     public struct LandActions
     {
         private @PlayerController m_Wrapper;
@@ -226,6 +248,7 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         public InputAction @Jump => m_Wrapper.m_Land_Jump;
         public InputAction @AttackG => m_Wrapper.m_Land_AttackG;
         public InputAction @Throw => m_Wrapper.m_Land_Throw;
+        public InputAction @Potion => m_Wrapper.m_Land_Potion;
         public InputActionMap Get() { return m_Wrapper.m_Land; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -247,6 +270,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Throw.started += instance.OnThrow;
             @Throw.performed += instance.OnThrow;
             @Throw.canceled += instance.OnThrow;
+            @Potion.started += instance.OnPotion;
+            @Potion.performed += instance.OnPotion;
+            @Potion.canceled += instance.OnPotion;
         }
 
         private void UnregisterCallbacks(ILandActions instance)
@@ -263,6 +289,9 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
             @Throw.started -= instance.OnThrow;
             @Throw.performed -= instance.OnThrow;
             @Throw.canceled -= instance.OnThrow;
+            @Potion.started -= instance.OnPotion;
+            @Potion.performed -= instance.OnPotion;
+            @Potion.canceled -= instance.OnPotion;
         }
 
         public void RemoveCallbacks(ILandActions instance)
@@ -286,5 +315,6 @@ public partial class @PlayerController: IInputActionCollection2, IDisposable
         void OnJump(InputAction.CallbackContext context);
         void OnAttackG(InputAction.CallbackContext context);
         void OnThrow(InputAction.CallbackContext context);
+        void OnPotion(InputAction.CallbackContext context);
     }
 }

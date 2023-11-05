@@ -36,7 +36,7 @@ public class SaveManager : MonoBehaviour
         if (current.records == null)
             current.LoadRecords();
         return current.records;
-    }
+    } 
 
     void SaveRecords()
     {

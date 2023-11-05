@@ -200,6 +200,7 @@ MonoBehaviour:
   Ball: {fileID: 4881257562962728898, guid: 461c7f6034968c042ac663964b77c458, type: 3}
   Col: {fileID: 0}
   FireEffect: {fileID: 7232846634505867805, guid: 83d87ebf2f196e8409e9525f076230a2, type: 3}
+  HittedEffect: {fileID: 6716172565212862499, guid: 2a0d9a7782bb1434b96ada431888f491, type: 3}
   Part1: {fileID: 3798870335876668669, guid: 878a74b9f44590041924d2035b1675e2, type: 3}
   Part2: {fileID: 8356340106313229802, guid: 8ba193f12534c2c4cb98a11bd8fc922d, type: 3}
   Part3: {fileID: 7665759911543561895, guid: 7e8741b774df54b4691f9825bb1f0b5d, type: 3}

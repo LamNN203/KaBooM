@@ -28,6 +28,7 @@ public class RunningPig : MonoBehaviour
     public Transform player;
     public Transform me;
     public GameObject Reward;
+    public GameObject HittedEffect;
     public RadaForPig Rada;
     public SlowMotion Slow;
     
@@ -119,6 +120,7 @@ public class RunningPig : MonoBehaviour
         HP -= damage; // Tru mau
         // healthctr.SetHealth(hitpoints, Maxhitpoins);
         Knockback();
+        Instantiate(HittedEffect, me.position, me.rotation);
         state = State.hitted;
         if (HP <= 0)
         {   

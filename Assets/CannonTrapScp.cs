@@ -11,6 +11,7 @@ public class CannonTrapScp : MonoBehaviour
     public Rigidbody2D Ball;
     public Collider2D Col;
     public GameObject FireEffect;
+    public GameObject HittedEffect;
     public GameObject Part1;
     public GameObject Part2;
     public GameObject Part3;
@@ -105,6 +106,7 @@ public class CannonTrapScp : MonoBehaviour
         HP -= damage; // Tru mau
         // healthctr.SetHealth(hitpoints, Maxhitpoins);
         Knockback();
+        Instantiate(HittedEffect, transform.position, transform.rotation);
         if (HP <= 0)
         {
             OnDeath();
