@@ -8,11 +8,15 @@ using UnityEngine.UI;
 public class controller : MonoBehaviour
 {
     PlayerController controls;
+
+    [Header("Character Status")]
     float direction = 0;
     private float ydirection = 0;
     public float Jumpforce = 0;
     public float speed;
-    public float attackDash = 0;
+    public float attackDash = 0; 
+    public float Hurtforce = 0;
+    [Header("Character logic")]
     public State state = State.idle;
     public LayerMask ground;
     public bool doubleJump;
@@ -20,7 +24,6 @@ public class controller : MonoBehaviour
     public float HurtDelay;
     private float timer;
     private float hurttimer;
-    public float Hurtforce = 0;
     public bool isAttacking = false;
     public bool isAttacking2 = false;
     public bool isFacingleft = false;
@@ -31,10 +34,18 @@ public class controller : MonoBehaviour
     public float ThrowForceY;
     public bool HaveSword = true;
     public bool Dialogue = false;
-
+    [Header("Character Component")]
     public Rigidbody2D rg;
     public CapsuleCollider2D boxcl;
     public Animator anim;
+    public Rigidbody2D ThorwingSword;
+    public PlayerHealthManager HealthManager;
+    public PlayerCoinsManager CoinsManager;
+    public PlayerPotionManager PotionManager;
+    public Slider YforceThrowChange;
+    public TimeFreezer FreezyTimes;
+    public SlowMotion SlowDown;
+    [Header("Character particle")]
     public GameObject Dustparticle;
     public GameObject JumpParticle;
     public GameObject FallParticle;
@@ -43,14 +54,6 @@ public class controller : MonoBehaviour
     public GameObject AttackEffect2;
     public GameObject AttackEffect3;
     public GameObject HealthDrink;
-    public Rigidbody2D ThorwingSword;
-    public PlayerHealthManager HealthManager;
-    public PlayerCoinsManager CoinsManager;
-    public PlayerPotionManager PotionManager;
-    public Slider YforceThrowChange;
-    public TimeFreezer FreezyTimes;
-    public SlowMotion SlowDown;
-    //   public coinBehaviour CoinsBehaviour;
 
 
     public enum State { idle, running, jumping, falling, hurt, doubleJump,Throw, NoIdle, NoRunning, NoJumping, NoFalling, NoHurt, }
